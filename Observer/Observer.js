@@ -80,19 +80,17 @@ Watcher.prototype ={
     }
 };
 
-function SelfVue (data, el, exp) {
+function SelfVue (options) {
     var self=this;
-    this.data = data;
+    this.vm = this;
+    this.data = options;
 
-    Object.keys(data).forEach(function(key) {
+    Object.keys(this.data).forEach(function(key) {
         self.proxyKeys(key);  // 绑定代理属性
     });
 
-    observe(data);
-    el.innerHTML = this.data[exp];  // 初始化模板数据的值
-    new Watcher(this, exp, function (value) {
-        el.innerHTML = value;
-    });
+    observe(this.data);
+    new Compile(options, this.vm);
     return this;
 }
 SelfVue.prototype = {
@@ -147,6 +145,6 @@ function compileText(node,exp) {
     })
 }
 
-function (node,value) {
+function Compile (node,value) {
     node.textContent = typeof value === 'undefined' ? '' : value;
 }
