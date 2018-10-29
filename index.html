@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand”/>
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no"/>
+    <title>mini-vue</title>
+</head>
+<body>
+    <h1 id="name">{{name}}</h1>
+    <script src="./Observer/Observer.js"></script>
+    <script>
+        var ele = document.querySelector('#name');
+        var selfValue = new SelfVue({
+            name:'hello World'
+        },ele,'name');
+        setTimeout(function () {
+            console.log('name值改变了');
+            selfValue.name = 'can'
+        },2000)
+    </script>
+</body>
+</html>
